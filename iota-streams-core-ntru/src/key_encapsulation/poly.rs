@@ -16,10 +16,12 @@ use iota_streams_core::tbits::{
     *,
 };
 
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug)]
+use serde::{Serialize, Deserialize, Serializer};
+
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct PolyCoeff(pub u16);
 
-#[derive(PartialEq, Eq, Copy, Clone, Debug)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct PolyDCoeff(pub u32);
 
 impl From<PolyCoeff> for PolyDCoeff {
@@ -190,9 +192,18 @@ fn coeff_inv(a: PolyCoeff) -> PolyCoeff {
     e
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Deserialize)]
 pub struct Poly {
     coeffs: [PolyCoeff; N],
+}
+
+impl Serialize for Poly {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_i32(*self)
+    }
 }
 
 impl PartialEq for Poly {

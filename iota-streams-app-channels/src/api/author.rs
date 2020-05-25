@@ -40,6 +40,8 @@ use iota_streams_protobuf3::types::*;
 use super::*;
 use crate::message::*;
 
+use serde::{Serialize, Deserialize};
+
 /// Generic Channel Author type parametrised by the type of links, link store and
 /// link generator.
 ///
@@ -55,6 +57,7 @@ use crate::message::*;
 ///
 /// `LinkGen` is a helper tool for deriving links for new messages. It maintains a
 /// mutable state and can derive link pseudorandomly.
+#[derive(Serialize, Deserialize)]
 pub struct AuthorT<TW, F, P, Link, Store, LinkGen>
 where
     P: mss::Parameters<TW>,

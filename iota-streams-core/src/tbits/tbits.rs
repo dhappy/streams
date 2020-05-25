@@ -10,9 +10,11 @@ use super::{
     word::*,
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Container for tbits using a certain tbit encoding.
 /// Access to the individual tbits should be performed via `TbitConstSliceT` and `TbitMutSliceT` types.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Tbits<TW> {
     n: usize,
     buf: std::vec::Vec<TW>,

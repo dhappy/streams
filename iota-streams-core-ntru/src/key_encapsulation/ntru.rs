@@ -26,6 +26,8 @@ use iota_streams_core::{
 
 use super::poly::*;
 
+use serde::{Serialize, Deserialize};
+
 /// NTRU public key - 3g(x)/(1+3f(x)) - size.
 pub const PK_SIZE: usize = 9216;
 pub const PUBLIC_KEY_SIZE: usize = PK_SIZE;
@@ -366,7 +368,7 @@ where
 
 /// Private key object, contains secret trits `sk` and polynomial `f = NTT(1+3sk)`
 /// which serves as a precomputed value during decryption.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct PrivateKey<TW, F> {
     pub sk: Tbits<TW>,
     f: Poly, // NTT(1+3f)
@@ -375,7 +377,7 @@ pub struct PrivateKey<TW, F> {
 
 /// Public key object, contains trinary representation `pk` of public polynomial
 /// as well as it's NTT form in `h`.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct PublicKey<TW, F> {
     pub pk: Tbits<TW>,
     h: Poly, // NTT(3g/(1+3f))

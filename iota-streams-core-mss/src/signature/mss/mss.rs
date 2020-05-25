@@ -20,6 +20,8 @@ use crate::signature::wots::{
 };
 use iota_streams_core_merkletree::merkle_tree::*;
 
+use serde::{Serialize, Deserialize};
+
 pub trait Parameters<TW> {
     type PrngG: PRP<TW> + Clone + Default;
 
@@ -95,7 +97,7 @@ where
     h
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 struct SK<TW, P>
 where
     P: Parameters<TW>,
@@ -137,7 +139,7 @@ where
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct PrivateKey<TW, P>
 where
     P: Parameters<TW>,

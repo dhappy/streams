@@ -17,6 +17,7 @@ iota-streams-core-merkletree = { version = "0.1.0", path = "../iota-streams-core
 iota-streams-core = { version = "0.1.0", path = "../iota-streams-core" }
 iota-streams-core-keccak = { version = "0.1.0", path = "../iota-streams-core-keccak" }
 rand = "0.7"
+serde = "1.0.110"
 
 [dev-dependencies]
 criterion = "0.3"

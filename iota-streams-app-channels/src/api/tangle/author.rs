@@ -12,9 +12,12 @@ use iota_streams_core::{
     tbits::Tbits,
 };
 
+use serde::{Serialize, Deserialize};
+
 type AuthorImp = AuthorT<DefaultTW, DefaultF, DefaultP, Address, Store, LinkGen>;
 
 /// Author type.
+#[derive(Serialize, Deserialize)]
 pub struct Author {
     imp: AuthorImp,
 }
