@@ -19,6 +19,7 @@ iota-streams-core-mss = { version = "0.1.0", path = "../iota-streams-core-mss" }
 iota-streams-protobuf3 = { version = "0.1.0", path = "../iota-streams-protobuf3" }
 iota-streams-app = { version = "0.1.0", path = "../iota-streams-app" }
 failure = "0.1"
+serde = "1.0.110"
 
 [dev-dependencies]
 iota-lib-rs = { version = "^0.4.1" }

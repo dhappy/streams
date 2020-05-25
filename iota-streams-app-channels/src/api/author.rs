@@ -20,6 +20,7 @@ use iota_streams_core::{
     tbits::{
         trinary,
         word::{
+            BasicTbitWord,
             IntTbitWord,
             RngTbitWord,
             SpongosTbitWord,
@@ -40,6 +41,8 @@ use iota_streams_protobuf3::types::*;
 use super::*;
 use crate::message::*;
 
+use serde::{Serialize, Deserialize};
+
 /// Generic Channel Author type parametrised by the type of links, link store and
 /// link generator.
 ///
@@ -55,9 +58,10 @@ use crate::message::*;
 ///
 /// `LinkGen` is a helper tool for deriving links for new messages. It maintains a
 /// mutable state and can derive link pseudorandomly.
+#[derive(Serialize, Deserialize)]
 pub struct AuthorT<TW, F, P, Link, Store, LinkGen>
 where
-    P: mss::Parameters<TW>,
+    P: mss::Parameters<TW>, TW: BasicTbitWord
 {
     /// PRNG object used for MSS, NTRU, Spongos key generation, etc.
     prng: prng::Prng<TW, P::PrngG>,

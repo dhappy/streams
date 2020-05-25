@@ -37,10 +37,12 @@ pub use iota_streams_core::tbits::trinary::{
     Trint9,
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Fixed-size array of trytes, the size is known at compile time and is not encoded in trinary representation.
 /// The inner buffer size (in trits) must be multiple of 3.
 //TODO: PartialEq, Eq, Debug
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct NTrytes<TW>(pub Tbits<TW>);
 
 impl<TW> fmt::Debug for NTrytes<TW>
@@ -105,7 +107,7 @@ where
 /// Variable-size array of trytes, the size is not known at compile time and is encoded in trinary representation.
 /// The inner buffer size (in trits) must be multiple of 3.
 //TODO: PartialEq, Eq, Clone, Debug
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Trytes<TW>(pub Tbits<TW>);
 
 impl<TW> Default for Trytes<TW>
@@ -172,12 +174,12 @@ where
 /// from Spongos and encoded in the trinary stream during Wrap operation.
 /// During Unwrap operation the requested amount of trits is squeezed from Spongos
 /// and compared to the trits encoded in the trinary stream.
-#[derive(PartialEq, Eq, Copy, Clone, Debug)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Mac(pub usize);
 
 /// Mssig command modifier, it instructs Context to squeeze external hash value, commit
 /// spongos state, sign squeezed hash and encode (without absorbing!) signature.
-#[derive(PartialEq, Eq, Copy, Clone, Debug)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct MssHashSig;
 
 /*
@@ -189,7 +191,7 @@ impl Default for Mac {
  */
 
 /// PB3 `size_t` type, unsigned.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Size(pub usize);
 
 /// Max value of `size_t` type: `(27^13 - 1) / 2`.
@@ -230,7 +232,7 @@ impl fmt::Display for Size {
 
 /// PB3 `external` modifier, it changes behaviour of commands in the following way.
 /// The external field is not encoded in trinary representation and the value is stored in the environment implicitly.
-#[derive(PartialEq, Eq, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct External<T>(pub T);
 
 /// The `link` type is generic and transport-specific. Links can be address+tag pair
@@ -263,7 +265,7 @@ pub trait LinkStore<TW, F, Link> {
 }
 
 /// Empty "dummy" link store that stores no links.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct EmptyLinkStore<TW, F, Link, Info>(std::marker::PhantomData<(TW, F, Link, Info)>);
 
 impl<TW, F, Link, Info> Default for EmptyLinkStore<TW, F, Link, Info> {
@@ -282,7 +284,7 @@ impl<TW, F, Link, Info> LinkStore<TW, F, Link> for EmptyLinkStore<TW, F, Link, I
 /// Link store that contains a single link.
 /// This link store can be used in Streams Applications supporting a list-like "thread"
 /// of messages without access to the history as the link to the last message is stored.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct SingleLinkStore<TW, F, Link, Info>
 where
     F: PRP<TW>,
@@ -327,9 +329,11 @@ where
 
 use std::collections::HashMap;
 
+#[derive(Serialize, Deserialize)]
 pub struct DefaultLinkStore<TW, F, Link, Info>
 where
     F: PRP<TW>,
+    Link: Eq + hash::Hash,
 {
     map: HashMap<Link, (F::Inner, Info)>,
 }
@@ -382,6 +386,7 @@ use crate::command::{
     wrap,
 };
 
+#[derive(Serialize, Deserialize)]
 pub struct Fallback<T>(pub T);
 
 impl<T> From<T> for Fallback<T> {

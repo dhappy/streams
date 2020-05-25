@@ -12,9 +12,12 @@ use iota_streams_core::{
     tbits::Tbits,
 };
 
+use serde::{Serialize, Deserialize};
+
 type SubscriberImp = SubscriberT<DefaultTW, DefaultF, DefaultP, Address, Store, LinkGen>;
 
 /// Subscriber type.
+#[derive(Serialize, Deserialize)]
 pub struct Subscriber {
     imp: SubscriberImp,
 }

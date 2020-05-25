@@ -19,6 +19,8 @@ use iota_streams_protobuf3::{
     types::DefaultLinkStore,
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Default tbit word encoding.
 pub type DefaultTW = Trit;
 
@@ -58,7 +60,7 @@ pub trait Transport: transport::Transport<DefaultTW, DefaultF, Address> {}
 impl<T> Transport for T where T: transport::Transport<DefaultTW, DefaultF, Address> {}
 
 /// Message associated info, just message type indicator.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Serialize, Deserialize)]
 pub enum MsgInfo {
     Announce,
     ChangeKey,

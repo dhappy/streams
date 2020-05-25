@@ -30,6 +30,9 @@ use iota_streams_protobuf3::{
 
 use crate::message::*;
 
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
 pub struct TangleMessage<TW, F> {
     /// Encapsulated tbinary encoded message.
     pub tbinary_message: TbinaryMessage<TW, F, TangleAddress<TW>>,
@@ -56,7 +59,7 @@ impl<TW, F> TangleMessage<TW, F> {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct TangleAddress<TW> {
     pub appinst: AppInst<TW>,
     pub msgid: MsgId<TW>,
@@ -153,7 +156,7 @@ where
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct DefaultTangleLinkGenerator<TW, F> {
     appinst: AppInst<TW>,
     counter: usize,
@@ -246,7 +249,7 @@ pub const APPINST_SIZE: usize = 243;
 
 /// Application instance identifier.
 /// Currently, 81-tryte string stored in `address` transaction field.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct AppInst<TW> {
     pub(crate) id: NTrytes<TW>,
 }
@@ -367,7 +370,7 @@ pub const MSGID_SIZE: usize = 81;
 
 /// Message identifier unique within application instance.
 /// Currently, 27-tryte string stored in `tag` transaction field.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct MsgId<TW> {
     pub(crate) id: NTrytes<TW>,
 }

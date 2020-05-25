@@ -19,8 +19,10 @@ use crate::{
     },
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Spongos-based pseudo-random number generator.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Prng<TW, G> {
     /// PRNG secret key.
     secret_key: Tbits<TW>,

@@ -1,7 +1,9 @@
 use std::fmt;
 
+use serde::{Serialize, Deserialize};
+
 /// Unsigned trit type with values in range 0..2. Used by Troika implementation.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Hash)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Hash, Serialize, Deserialize)]
 pub struct Trit(pub u8); //0..2
 pub const MAX_TRIT: Trit = Trit(2);
 pub const MIN_TRIT: Trit = Trit(0);
@@ -13,7 +15,7 @@ impl fmt::Display for Trit {
 }
 
 /// Unsigned tryte type.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Tryte(pub u8); //0..26
 pub const MAX_TRYTE: Tryte = Tryte(26);
 pub const MIN_TRYTE: Tryte = Tryte(0);
@@ -25,7 +27,7 @@ impl fmt::Display for Tryte {
 }
 
 /// Signed trit type: -1..1.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Trint1(pub i8);
 pub const MAX_TRINT1: Trint1 = Trint1(1);
 pub const MIN_TRINT1: Trint1 = Trint1(-1);
@@ -37,7 +39,7 @@ impl fmt::Display for Trint1 {
 }
 
 /// Signed tryte type: -13..13.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Trint3(pub i8);
 pub const MAX_TRINT3: Trint3 = Trint3(13);
 pub const MIN_TRINT3: Trint3 = Trint3(-13);
@@ -49,7 +51,7 @@ impl fmt::Display for Trint3 {
 }
 
 /// Signed 6-trit integer type.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Trint6(pub i16);
 pub const MAX_TRINT6: Trint6 = Trint6(364);
 pub const MIN_TRINT6: Trint6 = Trint6(-364);
@@ -61,7 +63,7 @@ impl fmt::Display for Trint6 {
 }
 
 /// Signed 9-trit integer type.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Trint9(pub i16);
 pub const MAX_TRINT9: Trint9 = Trint9(9841);
 pub const MIN_TRINT9: Trint9 = Trint9(-9841);
@@ -73,7 +75,7 @@ impl fmt::Display for Trint9 {
 }
 
 /// Signed 18-trit integer type.
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Trint18(pub i32);
 pub const MAX_TRINT18: Trint18 = Trint18(193_710_244);
 pub const MIN_TRINT18: Trint18 = Trint18(-193_710_244);

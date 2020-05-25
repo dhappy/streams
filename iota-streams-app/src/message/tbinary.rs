@@ -18,7 +18,10 @@ use iota_streams_protobuf3::{
     types::*,
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Trinary network Message representation.
+#[derive(Serialize, Deserialize)]
 pub struct TbinaryMessage<TW, F, AbsLink> {
     /// Link -- message address.
     pub link: AbsLink,

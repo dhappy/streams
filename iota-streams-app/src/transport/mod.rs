@@ -10,6 +10,8 @@ use std::{
 
 use crate::message::TbinaryMessage;
 
+use serde::{Serialize, Deserialize};
+
 /// Network transport abstraction.
 /// Parametrized by the type of message links.
 /// Message link is used to identify/locate a message (eg. like URL for HTTP).
@@ -68,7 +70,11 @@ pub trait Transport<TW, F, Link> /* where Link: HasLink */ {
     }
 }
 
-pub struct BucketTransport<TW, F, Link> {
+#[derive(Serialize, Deserialize)]
+pub struct BucketTransport<TW, F, Link>
+where
+    Link: Eq + hash::Hash,
+{
     bucket: HashMap<Link, Vec<TbinaryMessage<TW, F, Link>>>,
 }
 

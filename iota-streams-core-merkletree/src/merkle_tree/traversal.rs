@@ -6,7 +6,7 @@ use std::{
 use super::*;
 
 /// Merkle-tree node.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Serialize, Deserialize)]
 struct Node<H> {
     /// Node level height, `0` -- leaf, `D` -- root.
     d: Height,
@@ -35,7 +35,7 @@ where
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 struct Stack<H> {
     /// Max stack size, max level of the top node.
     d: Height,
@@ -150,7 +150,7 @@ where
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct MT<H> {
     height: Height,
     root: H,

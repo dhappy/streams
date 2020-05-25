@@ -5,6 +5,8 @@ use std::{
 
 use super::word::*;
 
+use serde::{Serialize, Deserialize};
+
 /// Range of the form `[d..n)` where `0 <= d <= n`.
 ///
 /// Safe range operations return a subrange of `self`,
@@ -14,7 +16,7 @@ use super::word::*;
 /// ie. `[d'..n')` such that `0 <= d' <= n' <= n`.
 ///
 /// All safe and unsafe range operations check range bounds and panic in case of check failure.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct SliceRange {
     /// The right bound (ie. total range size).
     pub(crate) n: usize,
@@ -185,7 +187,7 @@ impl SliceRange {
 /// (each word contains one or more tbits) and a range in tbits within the array.
 ///
 /// Constant slice is a light-weight safe-copyable object.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Serialize, Deserialize)]
 pub struct TbitSlice<'a, TW: 'a> {
     /// Current slice range.
     pub(crate) r: SliceRange,
@@ -626,7 +628,11 @@ where
 /// The general rule is to avoid mutable operations with neighbouring slices in the same function.
 /// TODO: Ensure that this rule is satisfied throughout the crates (including Spongos,
 /// MSS, NTRU, Protobuf3).
-pub struct TbitSliceMut<'a, TW: 'a> {
+#[derive(Serialize, Deserialize)]
+pub struct TbitSliceMut<'a, TW: 'a>
+where
+    *mut TW: hash::Hash,
+{
     /// Current slice range.
     pub(crate) r: SliceRange,
     /// Base pointer, always stays constant.

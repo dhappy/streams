@@ -8,7 +8,10 @@ use iota_streams_core::{
     tbits::word::SpongosTbitWord,
 };
 
+use serde::{Serialize, Deserialize};
+
 //#[derive(Debug)]
+#[derive(Serialize, Deserialize)]
 pub struct Context<TW, F, OS> {
     pub spongos: Spongos<TW, F>,
     pub stream: OS,

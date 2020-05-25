@@ -17,3 +17,4 @@ iota-streams-core = { version = "0.1.0", path = "../iota-streams-core" }
 iota-streams-core-ntru = { version = "0.1.0", path = "../iota-streams-core-ntru" }
 iota-streams-core-mss = { version = "0.1.0", path = "../iota-streams-core-mss" }
 failure = "0.1"
+serde = "1.0.110"

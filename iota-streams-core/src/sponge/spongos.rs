@@ -16,7 +16,10 @@ use crate::{
     },
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Implemented as a separate from `Spongos` struct in order to deal with life-times.
+#[derive(Serialize, Deserialize)]
 pub struct Outer<TW> {
     /// Current position in the outer state.
     pos: usize,
@@ -83,12 +86,13 @@ where
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 pub enum Mode {
     OVERWRITE,
     XOR,
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct Spongos<TW, F> {
     /// Spongos transform.
     s: F,

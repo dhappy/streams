@@ -11,3 +11,6 @@ description = "A rust implementation of traversable Merkle tree"
 [lib]
 name = "iota_streams_core_merkletree"
 path = "src/lib.rs"
+
+[dependencies]
+serde = "1.0.110"

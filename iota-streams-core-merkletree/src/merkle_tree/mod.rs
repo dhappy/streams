@@ -4,6 +4,8 @@ use std::{
     rc::Rc,
 };
 
+use serde::{Serialize, Deserialize};
+
 /// Type of tree heights.
 pub type Height = usize;
 
@@ -73,7 +75,7 @@ where
 }
 
 /// Authentication path, also called proof.
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct APath<H> {
     /// Secret key number.
     pub(crate) skn: Idx,

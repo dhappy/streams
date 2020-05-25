@@ -12,6 +12,9 @@ use iota_streams_core::{
 };
 use iota_streams_core_merkletree::merkle_tree;
 
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
 pub struct ParametersMtTraversal<TW>(std::marker::PhantomData<TW>);
 
 impl<TW> super::Parameters<TW> for ParametersMtTraversal<TW>
@@ -35,7 +38,7 @@ where
 }
 /*
  */
-
+#[derive(Serialize, Deserialize)]
 pub struct ParametersMtComplete<TW>(std::marker::PhantomData<TW>);
 
 impl<TW> super::Parameters<TW> for ParametersMtComplete<TW>

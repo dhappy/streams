@@ -16,10 +16,13 @@ use iota_streams_core::tbits::{
     *,
 };
 
-#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug)]
+use serde::{Serialize, Deserialize};
+use serde_big_array::big_array;
+
+#[derive(PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct PolyCoeff(pub u16);
 
-#[derive(PartialEq, Eq, Copy, Clone, Debug)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct PolyDCoeff(pub u32);
 
 impl From<PolyCoeff> for PolyDCoeff {
@@ -190,8 +193,11 @@ fn coeff_inv(a: PolyCoeff) -> PolyCoeff {
     e
 }
 
-#[derive(Copy, Clone)]
+big_array! { BigArray; N }
+
+#[derive(Copy, Clone, Serialize, Deserialize)]
 pub struct Poly {
+    #[serde(with = "BigArray")]
     coeffs: [PolyCoeff; N],
 }
 

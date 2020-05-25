@@ -26,6 +26,8 @@
 
 use std::fmt;
 
+use serde::{Serialize, Deserialize};
+
 type Trit = u8; //0..2
 
 pub const NUM_ROUNDS: usize = 24;
@@ -37,7 +39,7 @@ const SLICES: usize = 27;
 const SLICESIZE: usize = COLUMNS * ROWS;
 const STATE_SIZE: usize = COLUMNS * ROWS * SLICES;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 struct T27(pub u32, pub u32);
 
 impl fmt::Debug for T27 {
@@ -379,7 +381,7 @@ const FROUND_CONSTANTS: [[T27; COLUMNS]; NUM_ROUNDS] = [
     ],
 ];
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 pub struct Troika {
     state: [T27; SLICESIZE], //TODO: use [[T27; 3]; 9]? or [[T27; 9]; 3]?
 }
@@ -549,6 +551,7 @@ impl fmt::Debug for Troika {
 /// ftroika.finalize();
 /// ftroika.squeeze(&mut out);
 /// ```
+#[derive(Serialize, Deserialize)]
 pub struct TroikaSponge {
     transform: Troika,
     rate: usize,

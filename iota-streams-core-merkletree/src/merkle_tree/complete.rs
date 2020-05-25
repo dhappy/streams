@@ -5,7 +5,9 @@ use std::{
 
 use super::*;
 
-#[derive(Clone)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Clone, Serialize, Deserialize)]
 pub struct MT<H> {
     /// MT height.
     height: Height,
